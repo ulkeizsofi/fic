@@ -24,6 +24,8 @@ char **colorNames;
 //default capture width and height
 const int FRAME_WIDTH = 640;
 const int FRAME_HEIGHT = 480;
+
+const int TRACKBAR_WINDOW_INDEX = 3;
 //max number of objects to be detected in frame
 const int MAX_NUM_OBJECTS = 50;
 //minimum and maximum object area
@@ -40,6 +42,7 @@ const std::string windowColor2 = "Red color";
 
 
 const std::string trackbarWindowName = "Trackbars";
+const std::string trackbarColorWindowName = "Trackbar color";
 
 
 void loadColorValues();
@@ -206,7 +209,7 @@ int main(int argc, char* argv[])
 	loadColorValues();
 	//initWithColor(3);
 	limitInf = 0;
-	limitSup = 4;
+	limitSup = TRACKBAR_WINDOW_INDEX;
 	//some boolean variables for different functionality within this
 	//program
 	bool trackObjects = true;
@@ -252,7 +255,7 @@ int main(int argc, char* argv[])
 		for(int i=limitInf; i<=limitSup; i++) {
 
 
-			if(i == 4) {
+			if(i == TRACKBAR_WINDOW_INDEX) {
 				inRange(HSV, Scalar(H_MIN, S_MIN, V_MIN), Scalar(H_MAX, S_MAX, V_MAX), threshold[i]);
 			}
 			else {
@@ -312,9 +315,9 @@ void loadColorValues() {
 	char str[100];
 
 	ifstream fs;
-  	fs.open ("colorConfigs.in");
+  	fs.open ("../colorConfigs.in");
 
-  	for(int i = 0; i < 5; i ++) {
+  	for(int i = 0; i < TRACKBAR_WINDOW_INDEX; i ++) {
   		fs >> str;
   		colorNames[i] = (char*)malloc(strlen(str) + 1);
   		strcpy(colorNames[i], str);
@@ -324,6 +327,14 @@ void loadColorValues() {
   			fs >> values[i][j];
   		}
   	}
+
+  	colorNames[TRACKBAR_WINDOW_INDEX] = (char*)malloc(trackbarColorWindowName.length());
+	strcpy(colorNames[TRACKBAR_WINDOW_INDEX], trackbarColorWindowName.c_str());
+	values[TRACKBAR_WINDOW_INDEX] = (int*)malloc(7*sizeof(int));
+
+  		for(int j = 0; j < 6; j ++){
+  			values[TRACKBAR_WINDOW_INDEX][j] = 0;
+  		}
 
   	fs.close();
 
