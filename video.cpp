@@ -230,7 +230,8 @@ int main(int argc, char* argv[])
 	VideoCapture capture;
 	//open capture object at location zero (default location for webcam)
 	//capture.open("rtmp://172.16.254.63/live/live");
-	capture.open(0); //default webcam
+	//capture.open(0); //default webcam
+	capture.open("http://192.168.1.109:8080/video"); //default webcam
 	//set height and width of capture frame
 	capture.set(CV_CAP_PROP_FRAME_WIDTH, FRAME_WIDTH);
 	capture.set(CV_CAP_PROP_FRAME_HEIGHT, FRAME_HEIGHT);
